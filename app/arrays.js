@@ -4,6 +4,9 @@
 // output: ['is', 'a', 'split', 'sentence.', 'This']
 
 function rearranger(arr) {
+    let splicedStr = arr.splice(0, 1)
+    Array.prototype.push.apply(arr, splicedStr)
+    return arr
 }
 
 
@@ -16,6 +19,14 @@ function rearranger(arr) {
 // output: 42
 
 function largestNum(arr) {
+    let largestNum = 0
+    arr.forEach(element => {
+        if(element > largestNum) {
+            largestNum = element
+        }
+    });
+
+    return largestNum
 }
 
 
@@ -28,6 +39,12 @@ function largestNum(arr) {
 // output: [16, 8, 4, 28]
 
 function elemsTimesLength(arr) {
+    let newArray = []
+    for(let i = 0; i < arr.length; i++) {
+        let tempValue = arr[i] * arr.length
+        newArray.push(tempValue)
+    }
+    return newArray
 }
 
 
@@ -62,8 +79,12 @@ let flights = [{
 
 
 function flightCost(destination, firstClass) {
-    //***hint: use the find method***
-
+    let currentFlight = flights.find(element => element.to == destination.toUpperCase())
+    if(firstClass) {
+        return currentFlight.prices.firstClass;
+    } else {
+        return currentFlight.prices.standard;
+    }            
 }
 
 
@@ -84,14 +105,24 @@ let staff = [{ id: 1, name: 'Jon' }, { id: 2, name: 'Yuli' }, { id: 21, name: 'P
 { id: 881, name: 'Paul' }, { id: 0, name: 'Jon' }, { id: 999, name: 'Timma' }]
 
 function findById(id) {
-
+    let currentId = staff.find(element => element.id == id)
+    if(currentId) {
+        return (currentId);
+    } else {
+        let currentId = {error: "No matching users"}
+        return currentId;
+    }
+    
 }
 
 
 // ------------------------------------------
 
 
-// 6. Write a function that accepts a name argument and will loop over theBand members and return the band member's name and the instrument that he/she plays. Use string concatenation or interpolation to return a sentence with the following structure: "[band-members-name] is in the band and plays the [band-members-instrument]".
+// 6. Write a function that accepts a name argument and will loop over theBand members 
+// and return the band member's name and the instrument that he/she plays. 
+// Use string concatenation or interpolation to return a sentence with the following structure: 
+//"[band-members-name] is in the band and plays the [band-members-instrument]".
 // Example:
 // input: 'Johnny P'
 // output: "Johnny P is in the band and plays the sax"
@@ -111,4 +142,18 @@ let theBand = {
 }
 
 function bandMemberDetails(name) {
+    let bandMember
+    let newStr
+    theBand.members.forEach(element => {
+        if(element.name == name) {
+            bandMember = element
+        }
+    });
+    if(bandMember) {
+        newStr = `${bandMember.name} is in the band and plays the ${bandMember.instrument}`
+    } else {
+        newStr = "oops"
+    }
+
+    return newStr
 }
